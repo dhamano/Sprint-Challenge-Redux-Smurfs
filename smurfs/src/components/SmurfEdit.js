@@ -59,12 +59,12 @@ class SmurfEdit extends React.Component {
             </label></dd>
           </dl>
           <button>
-            {this.props.isDeleteing ? (
+            {this.props.isEditing ? (
               <Loader type="ThreeDots" color="#7cc6ff" height="12" width="26" />
             ) : (
               "save smurf"
             )}</button>
-            <button className="remove" onClick={this.deleteSmurf}>{this.props.isEditing ? (
+            <button className="remove" onClick={this.deleteSmurf}>{this.props.isDeleteing ? (
               <Loader type="ThreeDots" color="#7cc6ff" height="12" width="26" />
             ) : (
               "kick out smurf"
