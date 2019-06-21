@@ -71,3 +71,20 @@ export const editSmurf = smurfInfo => dispatch => {
     })
     .catch(err => console.log(err));
 }
+
+export const DELETE_SMURF_START    = "DELETE_SMURF_START";
+export const DELETE_SMURF_SUCCESS  = "DELETE_SMURF_SUCCESS";
+export const DELETE_SMURF_FAIL     = "DELETE_SMURF_FAIL";
+
+export const deleteSmurf = smurfInfo => dispatch => {
+  dispatch({ type: DELETE_SMURF_START });
+  return axios.delete(`${baseURL}/smurfs/${smurfInfo.id}`)
+    .then(res => {
+      dispatch({
+        type    : DELETE_SMURF_SUCCESS,
+        payload : res.data
+      })
+      return true;
+    })
+    .catch(err => console.log(err));
+}

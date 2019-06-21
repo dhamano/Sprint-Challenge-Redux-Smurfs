@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { editSmurf } from '../actions';
+import { editSmurf, deleteSmurf } from '../actions';
 
 class SmurfEdit extends React.Component {
   state = {
@@ -35,6 +35,11 @@ class SmurfEdit extends React.Component {
     }
   }
 
+  deleteSmurf = event => {
+    event.preventDefault();
+    this.props.deleteSmurf(this.state).then(res => console.log(res));
+  }
+
   render() {
     return (
       <div className="smurf-info-card">
@@ -54,10 +59,15 @@ class SmurfEdit extends React.Component {
             </label></dd>
           </dl>
           <button>
-            {this.props.isEditing ? (
+            {this.props.isDeleteing ? (
               <Loader type="ThreeDots" color="#7cc6ff" height="12" width="26" />
             ) : (
               "save smurf"
+            )}</button>
+            <button className="remove" onClick={this.deleteSmurf}>{this.props.isEditing ? (
+              <Loader type="ThreeDots" color="#7cc6ff" height="12" width="26" />
+            ) : (
+              "kick out smurf"
             )}</button>
         </form>
       </div>
@@ -67,7 +77,8 @@ class SmurfEdit extends React.Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  isEditing: state.isEditing
+  isEditing: state.isEditing,
+  isDeleteing: state.isDeleteing
 });
 
-export default connect( mapStateToProps, { editSmurf })(SmurfEdit);
+export default connect( mapStateToProps, { editSmurf, deleteSmurf })(SmurfEdit);

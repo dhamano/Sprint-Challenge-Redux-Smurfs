@@ -31,14 +31,18 @@ import {
   EDIT_SMURF_START,
   EDIT_SMURF_SUCCESS,
   EDIT_SMURF_FAIL,
+  DELETE_SMURF_START,
+  DELETE_SMURF_SUCCESS,
+  DELETE_SMURF_FAIL
 } from '../actions';
 
 const initialState = {
-  error     : "",
-  smurfsList: [],
-  isFetching: false,
-  isAdding  : false,
-  isEditing : false
+  error       : "",
+  smurfsList  : [],
+  isFetching  : false,
+  isAdding    : false,
+  isEditing   : false,
+  isDeleteing : false
 }
 
 const reducer = (state = initialState, action) => {
@@ -99,6 +103,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         error     : action.payload,
         isEditing: false,
+      }
+    case DELETE_SMURF_START:
+      return {
+        ...state,
+        error   : '',
+        isDeleteing: true,
+      }
+    case DELETE_SMURF_SUCCESS:
+      return {
+        ...state,
+        error   : '',
+        smurfsList: action.payload,
+        isDeleteing: false,
+      }
+    case DELETE_SMURF_FAIL:
+      return {
+        ...state,
+        error     : action.payload,
+        isDeleteing: false,
       }
     default:
       return state;
